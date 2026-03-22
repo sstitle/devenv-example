@@ -11,7 +11,7 @@
     venv.requirements = ./requirements.txt;
   };
 
-  processes.api.exec = "uvicorn main:app --reload";
+  processes.api.exec = "${config.env.DEVENV_STATE}/venv/bin/uvicorn main:app --reload";
 
   scripts.hello.exec = ''
     echo hello from $GREET
