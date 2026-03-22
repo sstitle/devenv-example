@@ -11,3 +11,7 @@ devenv.local.yaml
 
 # Python
 __pycache__
+
+
+node_modules/
+dist/

@@ -1,9 +1,7 @@
 { pkgs, lib, config, inputs, ... }:
 
 {
-  env.GREET = "devenv";
-
-  packages = [ pkgs.git ];
+  packages = [ pkgs.git pkgs.nodejs_22 ];
 
   languages.python = {
     enable = true;
@@ -12,14 +10,10 @@
   };
 
   processes.api.exec = "${config.env.DEVENV_STATE}/venv/bin/uvicorn main:app --reload";
-
-  scripts.hello.exec = ''
-    echo hello from $GREET
-  '';
+  processes.frontend.exec = "cd $DEVENV_ROOT/frontend && npm install && npm run dev";
 
   enterShell = ''
-    hello
-    echo "Run 'devenv up' to start the API"
+    echo "Run 'devenv up' to start API (port 8000) + frontend (port 5173)"
   '';
 
   enterTest = ''

@@ -1,7 +1,6 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
 from pycrdt.websocket import WebsocketServer
 from pycrdt.websocket.asgi_server import ASGIServer
 
@@ -17,6 +16,5 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-# Mount the Yjs ASGI server directly — handles the WebSocket protocol correctly
+# Mount the Yjs ASGI server — handles the WebSocket protocol correctly
 app.mount("/ws", yjs_asgi)
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
